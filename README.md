@@ -1,2 +1,2 @@
-# blog
+# cms-amdin
 my blog
