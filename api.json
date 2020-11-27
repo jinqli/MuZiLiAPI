@@ -1,0 +1,21 @@
+{
+  "users": [
+    "127.0.0.1:3000/api/user/register",
+    "127.0.0.1:3000/api/user/login",
+    "127.0.0.1:3000/api/user/info"
+  ],
+  "articles": [
+    "127.0.0.1:3000/api/article/add",
+    "127.0.0.1:3000/api/article/delete",
+    "127.0.0.1:3000/api/article/update",
+    "127.0.0.1:3000/api/article/list",
+    "127.0.0.1:3000/api/article/one"
+  ],
+
+  "classify": [
+    "127.0.0.1:3000/api/classify/add",
+    "127.0.0.1:3000/api/classify/delete",
+    "127.0.0.1:3000/api/classify/update",
+    "127.0.0.1:3000/api/classify/list"
+  ]
+}
