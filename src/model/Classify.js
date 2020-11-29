@@ -1,17 +1,20 @@
 // Classify Schema Model
-const mongoose = require('../db/db')
+const mongoose = require("../db/db");
 
-const ClassifySchema = mongoose.Schema({
-  classifyName: {
-    type: String,
-    required: true,
-    unique: true
+const ClassifySchema = mongoose.Schema(
+  {
+    classifyName: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    instructions: {
+      type: String,
+    },
   },
-  introduction: {
-    type: String,
-  },
-}, {timestamps: true})
+  { timestamps: true }
+);
 
-const Classify = mongoose.model('classify', ClassifySchema)
+const Classify = mongoose.model("classify", ClassifySchema);
 
-module.exports = Classify
+module.exports = Classify;

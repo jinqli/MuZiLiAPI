@@ -24,7 +24,7 @@ router.post("/addArticle", async (ctx, next) => {
   } catch (error) {
     ctx.body = {
       errno: -1,
-      message: "添加失败",
+      message: "添加失败:" + error,
     };
   }
 });

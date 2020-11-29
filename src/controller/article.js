@@ -12,9 +12,13 @@ async function addArticle(article = {}) {
 
 // update article
 async function updateArticle(_id, article) {
-  const result = await Article.findOneAndUpdate({ _id }, { ...article }, {
-    new: true,
-  });
+  const result = await Article.findOneAndUpdate(
+    { _id },
+    { ...article },
+    {
+      new: true,
+    }
+  );
   return result;
 }
 

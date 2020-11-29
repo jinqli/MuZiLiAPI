@@ -22,9 +22,8 @@ const ArticleSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  updateAt: {
+  updatedAt: {
     type: String,
-    required: true,
   },
 });
 
