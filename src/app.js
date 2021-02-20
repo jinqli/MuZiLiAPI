@@ -12,7 +12,7 @@ const mount = require("koa-mount");
 const index = require("./routes/index");
 const users = require("./routes/users");
 const articles = require("./routes/articles");
-const classifys = require("./routes/classifys");
+const categories = require("./routes/categories");
 
 // error handler
 onerror(app);
@@ -60,7 +60,7 @@ app.use(async (ctx, next) => {
 app.use(index.routes(), index.allowedMethods());
 app.use(users.routes(), users.allowedMethods());
 app.use(articles.routes(), articles.allowedMethods());
-app.use(classifys.routes(), classifys.allowedMethods());
+app.use(categories.routes(), categories.allowedMethods());
 
 // error-handling
 app.on("error", (err, ctx) => {
