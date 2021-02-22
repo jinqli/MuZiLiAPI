@@ -1,6 +1,8 @@
 const router = require("koa-router")();
 const { register, login, update, getInfo } = require("../controller/user");
-const loginCheck = require("../middleware/loginCheck");
+const jsonwebtoken = require("jsonwebtoken");
+
+const SECRET = "shared-secret"; // demo，可更换
 
 router.prefix("/api");
 
@@ -34,12 +36,16 @@ router.post("/login", async (ctx, next) => {
   const { username, password } = ctx.request.body;
   // 验证登录
   const result = await login(username, password);
+  // 判断用户名密码是否匹配
   if (result) {
-    //登录成功,进行session缓存
-    let openId = new Date().getTime();
-    ctx.session.openId = { openId };
     ctx.body = {
       errno: 0,
+      message: "登录成功",
+      token: jsonwebtoken.sign(
+        { name: username, password }, // 加密userToken
+        SECRET,
+        { expiresIn: "1h" }
+      ),
     };
   } else {
     // error
@@ -51,7 +57,7 @@ router.post("/login", async (ctx, next) => {
 });
 
 // get user info (edit)
-router.get("/info", loginCheck, async (ctx, next) => {
+router.get("/userList", async (ctx, next) => {
   const users = await getInfo();
   ctx.body = {
     errno: 0,
@@ -60,7 +66,7 @@ router.get("/info", loginCheck, async (ctx, next) => {
 });
 
 // update userInfo api
-router.post("/update", loginCheck, async (ctx, next) => {
+router.post("/update", async (ctx, next) => {
   // 获取修改后的用户信息
   const updateUser = ctx.request.body;
   // 获取当前修改用户
@@ -78,14 +84,6 @@ router.post("/update", loginCheck, async (ctx, next) => {
       message: "修改失败",
     };
   }
-});
-
-// login check
-router.get("/loginCheck", loginCheck, async (ctx, next) => {
-  ctx.body = {
-    isLogin: 0,
-    openId: ctx.session.openId,
-  };
 });
 
 module.exports = router;

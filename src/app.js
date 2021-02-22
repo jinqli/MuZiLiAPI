@@ -6,35 +6,50 @@ const bodyparser = require("koa-bodyparser");
 const logger = require("koa-logger");
 // koa2-cors 跨域资源共享 未安装
 const cors = require("koa2-cors");
-const session = require("koa-generic-session");
-const mount = require("koa-mount");
+// jwt验证
+const koajwt = require("koa-jwt");
 
+// router
 const index = require("./routes/index");
 const users = require("./routes/users");
 const articles = require("./routes/articles");
 const categories = require("./routes/categories");
+const leave_message = require("./routes/leave_message");
 
 // error handler
 onerror(app);
 
-// 服务端支持跨域
+// 中间件对token进行验证
+app.use(async (ctx, next) => {
+  // let token = ctx.header.authorization;
+  // let payload = await util.promisify(jsonwebtoken.verify)(token.split(' ')[1], SECRET);
+  return next().catch((err) => {
+    if (err.status === 401) {
+      ctx.status = 401;
+      ctx.body = {
+        code: 401,
+        msg: err.message,
+      };
+    } else {
+      throw err;
+    }
+  });
+});
+
+const SECRET = "shared-secret"; // demo，可更换
+
 app.use(
-  cors({
-    origin: "http://localhost:3000", // 支持前端哪个域，可以跨域
-    // origin: "*",
-    credentials: true, // 允许跨域的时候带着 cookie
+  koajwt({ secret: SECRET }).unless({
+    // 登录接口不需要验证
+    path: [/^\/api\/login/, /^\/api\/register/, /^\/api\/index/],
   })
 );
 
-// 配置session
-app.keys = ["have^ink&121@LJQ"];
+// 服务端支持跨域
 app.use(
-  session({
-    cookie: {
-      path: "/",
-      httpOnly: true,
-      maxAge: 24 * 24 * 60 * 1000, // 一天
-    },
+  cors({
+    // origin: "http://localhost:3000", // 支持前端哪个域，可以跨域
+    origin: "*",
   })
 );
 
@@ -61,6 +76,7 @@ app.use(index.routes(), index.allowedMethods());
 app.use(users.routes(), users.allowedMethods());
 app.use(articles.routes(), articles.allowedMethods());
 app.use(categories.routes(), categories.allowedMethods());
+app.use(leave_message.routes(), leave_message.allowedMethods());
 
 // error-handling
 app.on("error", (err, ctx) => {

@@ -15,6 +15,11 @@ const ArticleSchema = mongoose.Schema({
     required: true,
     unique: true,
   },
+  imgUrl: {
+    type: String,
+    deault:
+      "https://desk-fd.zol-img.com.cn/t_s208x130c5/g6/M00/03/05/ChMkKmAd-R-IGbg9AAmT2xHAEmcAAJfgwPApwUACZPz463.jpg",
+  },
   content: {
     type: String,
     required: true,

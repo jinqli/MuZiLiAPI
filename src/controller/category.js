@@ -22,7 +22,7 @@ async function updateCategory(_id, Category) {
   return result;
 }
 
-async function Category() {
+async function getCategory() {
   const result = await Category.find();
   return result;
 }
@@ -42,7 +42,7 @@ module.exports = {
   addCategory,
   delCategory,
   updateCategory,
-  Category,
+  getCategory,
   getCategoryById,
   getCategory,
 };
