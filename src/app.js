@@ -20,30 +20,28 @@ const leave_message = require("./routes/leave_message");
 onerror(app);
 
 // 中间件对token进行验证
-app.use(async (ctx, next) => {
-  // let token = ctx.header.authorization;
-  // let payload = await util.promisify(jsonwebtoken.verify)(token.split(' ')[1], SECRET);
-  return next().catch((err) => {
-    if (err.status === 401) {
-      ctx.status = 401;
-      ctx.body = {
-        code: 401,
-        msg: err.message,
-      };
-    } else {
-      throw err;
-    }
-  });
-});
+// app.use(async (ctx, next) => {
+//   return next().catch((err) => {
+//     if (err.status === 401) {
+//       ctx.status = 401;
+//       ctx.body = {
+//         code: 401,
+//         msg: err.message,
+//       };
+//     } else {
+//       throw err;
+//     }
+//   });
+// });
 
 const SECRET = "shared-secret"; // demo，可更换
 
-app.use(
-  koajwt({ secret: SECRET }).unless({
-    // 登录接口不需要验证
-    path: [/^\/api\/login/, /^\/api\/register/, /^\/api\/index/],
-  })
-);
+// app.use(
+//   koajwt({ secret: SECRET }).unless({
+//     // 登录接口不需要验证
+//     path: [/^\/api\/login/, /^\/api\/register/, /^\/api\/index/],
+//   })
+// );
 
 // 服务端支持跨域
 app.use(

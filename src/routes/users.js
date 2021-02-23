@@ -1,8 +1,9 @@
 const router = require("koa-router")();
 const { register, login, update, getInfo } = require("../controller/user");
-const jsonwebtoken = require("jsonwebtoken");
-
-const SECRET = "shared-secret"; // demo，可更换
+// const jsonwebtoken = require("jsonwebtoken");
+// // 解密
+// const util = require("util");
+// const verify = util.promisify(jsonwebtoken.verify);
 
 router.prefix("/api");
 
@@ -41,11 +42,11 @@ router.post("/login", async (ctx, next) => {
     ctx.body = {
       errno: 0,
       message: "登录成功",
-      token: jsonwebtoken.sign(
-        { name: username, password }, // 加密userToken
-        SECRET,
-        { expiresIn: "1h" }
-      ),
+      // token: jsonwebtoken.sign(
+      //   { name: username, password }, // 加密userToken
+      //   "inkhave",
+      //   { expiresIn: "1h" }
+      // ),
     };
   } else {
     // error
@@ -60,7 +61,7 @@ router.post("/login", async (ctx, next) => {
 router.get("/userList", async (ctx, next) => {
   const users = await getInfo();
   ctx.body = {
-    errno: 0,
+    code: 401,
     data: users,
   };
 });

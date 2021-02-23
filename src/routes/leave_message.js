@@ -38,6 +38,7 @@ router.get("/delLeaveMessage", async (ctx, next) => {
 });
 
 router.get("/leaveMessageList", async (ctx, next) => {
+  console.log(ctx.header.authorization.split(" ")[1]);
   const result = await getLeaveMessageList();
   ctx.body = {
     errno: 0,
