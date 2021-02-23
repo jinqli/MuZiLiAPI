@@ -32,17 +32,10 @@ async function getCategoryById(_id) {
   return result;
 }
 
-// 前台
-async function getCategory() {
-  const result = await Category.find();
-  return result;
-}
-
 module.exports = {
   addCategory,
   delCategory,
   updateCategory,
-  getCategory,
   getCategoryById,
   getCategory,
 };

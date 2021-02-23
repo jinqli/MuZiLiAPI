@@ -5,11 +5,9 @@ const CategorySchema = mongoose.Schema(
   {
     username: {
       type: String,
-      required: true,
     },
     user_id: {
       type: String,
-      required: true,
     },
     category: {
       type: String,

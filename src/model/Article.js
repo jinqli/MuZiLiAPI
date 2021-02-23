@@ -4,11 +4,9 @@ const mongoose = require("../db/db");
 const ArticleSchema = mongoose.Schema({
   username: {
     type: String,
-    required: true,
   },
   user_id: {
     type: String,
-    required: true,
   },
   title: {
     type: String,
@@ -24,7 +22,7 @@ const ArticleSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  classify: {
+  category: {
     type: String,
     required: true,
   },

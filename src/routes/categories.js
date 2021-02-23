@@ -3,10 +3,9 @@ const {
   addCategory,
   delCategory,
   updateCategory,
-  Category,
   getCategoryById,
   getCategory,
-} = require("../controller/Category");
+} = require("../controller/category");
 
 router.prefix("/api");
 
@@ -50,8 +49,8 @@ router.post("/updateCategory", async (ctx, next) => {
   };
 });
 
-router.get("/Category", async (ctx, next) => {
-  const result = await Category();
+router.get("/category", async (ctx, next) => {
+  const result = await getCategory();
   if (result) {
     ctx.body = {
       errno: 0,
